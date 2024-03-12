@@ -1,4 +1,4 @@
-import { Injectable, NotImplementedException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Author } from './author.entity';
 
 const defaultAuthors = [
@@ -69,22 +69,50 @@ export class AuthorService {
   constructor(private authors: Author[] = defaultAuthors) {}
 
   findAll(): Author[] {
-    throw new NotImplementedException();
+    return this.authors;
   }
 
   findById(id: number): Author {
-    throw new NotImplementedException();
+    const author = this.authors.find((author) => author.id === id);
+
+    if (!author) {
+      throw new NotFoundException();
+    }
+
+    return author;
   }
 
   create(authorData: Omit<Author, 'id'>): Author {
-    throw new NotImplementedException();
+    const newAuthor: Author = { id: this.authors.length + 1, ...authorData };
+    this.authors.push(newAuthor);
+
+    return newAuthor;
   }
 
   update(id: number, updatedAuthorData: Partial<Omit<Author, 'id'>>): Author {
-    throw new NotImplementedException();
+    const authorIndex = this.authors.findIndex((author) => author.id === id);
+
+    if (authorIndex === -1) {
+      throw new NotFoundException();
+    }
+
+    const updatedAuthor = {
+      ...this.authors[authorIndex],
+      ...updatedAuthorData,
+    };
+
+    this.authors[authorIndex] = updatedAuthor;
+
+    return updatedAuthor;
   }
 
   remove(id: number): void {
-    throw new NotImplementedException();
+    const authorIndex = this.authors.findIndex((author) => author.id === id);
+
+    if (authorIndex === -1) {
+      throw new NotFoundException();
+    }
+
+    this.authors.splice(authorIndex);
   }
 }
