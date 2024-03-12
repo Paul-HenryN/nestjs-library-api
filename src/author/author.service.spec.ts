@@ -4,16 +4,16 @@ import { NotFoundException } from '@nestjs/common';
 import { Author } from './author.entity';
 
 const testAuthors = [
-  { id: 11, name: 'Author 1', biography: 'Biography for Author 1' },
-  { id: 12, name: 'Author 2', biography: 'Biography for Author 2' },
-  { id: 13, name: 'Author 3', biography: 'Biography for Author 3' },
-  { id: 14, name: 'Author 4', biography: 'Biography for Author 4' },
-  { id: 15, name: 'Author 5', biography: 'Biography for Author 5' },
-  { id: 16, name: 'Author 6', biography: 'Biography for Author 6' },
-  { id: 17, name: 'Author 7', biography: 'Biography for Author 7' },
-  { id: 18, name: 'Author 8', biography: 'Biography for Author 8' },
-  { id: 19, name: 'Author 9', biography: 'Biography for Author 9' },
-  { id: 20, name: 'Author 10', biography: 'Biography for Author 10' },
+  { id: 1, name: 'Author 1', biography: 'Biography for Author 1' },
+  { id: 2, name: 'Author 2', biography: 'Biography for Author 2' },
+  { id: 3, name: 'Author 3', biography: 'Biography for Author 3' },
+  { id: 4, name: 'Author 4', biography: 'Biography for Author 4' },
+  { id: 5, name: 'Author 5', biography: 'Biography for Author 5' },
+  { id: 6, name: 'Author 6', biography: 'Biography for Author 6' },
+  { id: 7, name: 'Author 7', biography: 'Biography for Author 7' },
+  { id: 8, name: 'Author 8', biography: 'Biography for Author 8' },
+  { id: 9, name: 'Author 9', biography: 'Biography for Author 9' },
+  { id: 10, name: 'Author 10', biography: 'Biography for Author 10' },
 ];
 
 describe('AuthorService', () => {
@@ -54,7 +54,9 @@ describe('AuthorService', () => {
     });
 
     it("should throw not found error if author doesn't exist", () => {
-      expect(sut.findById(999)).toThrow(NotFoundException);
+      expect(() => {
+        sut.findById(999);
+      }).toThrow(NotFoundException);
     });
   });
 
